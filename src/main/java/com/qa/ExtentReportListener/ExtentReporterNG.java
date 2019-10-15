@@ -2,7 +2,10 @@ package com.qa.ExtentReportListener;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +15,7 @@ import org.testng.ISuite;
 import org.testng.ISuiteResult;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
+import org.testng.Reporter;
 import org.testng.xml.XmlSuite;
 
 import com.relevantcodes.extentreports.ExtentReports;
@@ -43,7 +47,8 @@ public class ExtentReporterNG implements IReporter {
 	}
 
 	private void buildTestNodes(IResultMap tests, LogStatus status) {
-		ExtentTest test;
+
+ExtentTest test;
 
 		if (tests.size() > 0) {
 			for (ITestResult result : tests.getAllResults()) {
@@ -58,7 +63,7 @@ public class ExtentReporterNG implements IReporter {
 				if (result.getThrowable() != null) {
 					test.log(status, result.getThrowable());
 				} else {
-					test.log(status, "Test " + status.toString().toLowerCase()
+					test.log(status, "This Test Case " + status.toString().toLowerCase()
 							+ "ed");
 				}
 

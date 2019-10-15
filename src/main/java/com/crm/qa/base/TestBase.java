@@ -11,22 +11,25 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.testng.Reporter;
+import org.testng.log4testng.Logger;
 
 import com.crm.qa.utils.TestUtil;
 import com.crm.qa.utils.WebEventListener;
 
 public class TestBase {
 	
+	private static final String BREAK_LINE = null;
 	public static WebDriver driver;
 	public static Properties prop;
 	public  static EventFiringWebDriver e_driver;
 	public static WebEventListener eventListener;
-	
+	public static Logger logger = null;
 	
 	public TestBase()  {
 		try {
 		prop = new Properties();
-		FileInputStream fi = new FileInputStream("C:\\Users\\hp\\eclipse-workspace\\FreeCRMTest\\src\\main\\java\\com\\crm\\qa\\config\\config.properties");
+		FileInputStream fi = new FileInputStream("C:\\Users\\hp\\eclipse-workspace\\SwatiInterview\\src\\main\\java\\com\\crm\\qa\\config\\config.properties");
 		
 		prop.load(fi);
 		}
@@ -43,12 +46,12 @@ public class TestBase {
 	String browsername =	prop.getProperty("browser");
 	if (browsername.equals("chrome"))
 	{
-		System.setProperty("webdriver.chrome.driver","C:/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\Driver\\chromedriver.exe");
 		driver = new ChromeDriver();
 	}
 	else if (browsername.equals("Firefox"))
 	{
-		System.setProperty("webdriver.gecko.driver","C:/geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver",System.getProperty("user.dir")+"\\Drivers\\geckodriver.exe");
 		driver = new FirefoxDriver();
 		
 	}
@@ -64,4 +67,10 @@ public class TestBase {
 	driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
 	driver.get(prop.getProperty("url"));
 	}
+	 public static void reportLog(String message) {
+		  //  message = BREAK_LINE + message;
+		    
+			logger.info("Message: " + message);
+		    Reporter.log(message);
+		}
 }
